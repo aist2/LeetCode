@@ -6,7 +6,8 @@ import java.util.List;
 public class GenerateTrees {
     public static List<TreeNode> generateTrees(int n) {
     	if (n==0) return new ArrayList<TreeNode>();
-    	List<TreeNode>[] arr = new List[n+1];
+		@SuppressWarnings("unchecked")
+		List<TreeNode>[] arr = new List[n+1];
     	arr[0] = new ArrayList<TreeNode>();
     	arr[0].add(null);
     	for (int i=1; i<=n; i++) {
