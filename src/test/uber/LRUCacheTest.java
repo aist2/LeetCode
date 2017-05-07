@@ -2,6 +2,10 @@ package uber;
 
 import org.junit.Test;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import static org.junit.Assert.assertEquals;
 
 public class LRUCacheTest {
@@ -56,5 +60,15 @@ public class LRUCacheTest {
         cache.get(2);
         cache.get(3);
         cache.get(4);
+    }
+
+    @Test
+    public void test5() throws Exception {
+        LRUCache cache = new LRUCache(10);
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        executor.submit(() -> cache.put(1,1));
+        Future<Integer> future = executor.submit(() -> cache.get(1));
+        assertEquals(1, (int)future.get());
+        executor.shutdown();
     }
 }

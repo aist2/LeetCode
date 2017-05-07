@@ -2,6 +2,9 @@ package uber;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static java.util.Collections.*;
 
 class LRUCache {
     private final Map<Integer, Node> map;
@@ -18,7 +21,7 @@ class LRUCache {
         tail = null;
     }
 
-    public int get(int key) {
+    public synchronized int get(int key) {
         if (map.containsKey(key)) {
             Node node = map.get(key);
             updateUsage(node);
@@ -28,7 +31,7 @@ class LRUCache {
         }
     }
 
-    public void put(int key, int value) {
+    public synchronized void put(int key, int value) {
         Node node;
         if (map.containsKey(key)) {
             node = map.get(key);
